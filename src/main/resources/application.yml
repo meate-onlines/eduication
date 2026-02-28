@@ -1,0 +1,50 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:language_learning;MODE=MYSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  ai:
+    openai:
+      base-url: ${OPENAI_BASE_URL:https://api.openai.com}
+      api-key: ${OPENAI_API_KEY:demo-key}
+      chat:
+        options:
+          model: ${OPENAI_MODEL:gpt-4o-mini}
+          temperature: 0.7
+
+app:
+  security:
+    jwt-secret: ${JWT_SECRET:change-this-secret-change-this-secret-123456}
+    jwt-expire-hours: 48
+  payment:
+    wechat:
+      app-id: ${WECHAT_APP_ID:demo-app-id}
+      mch-id: ${WECHAT_MCH_ID:demo-mch-id}
+      api-v3-key: ${WECHAT_API_V3_KEY:demo-key}
+      notify-url: ${WECHAT_NOTIFY_URL:http://localhost:8080/api/payments/wechat/callback}
+    alipay:
+      app-id: ${ALIPAY_APP_ID:demo-app-id}
+      private-key: ${ALIPAY_PRIVATE_KEY:demo-private-key}
+      public-key: ${ALIPAY_PUBLIC_KEY:demo-public-key}
+      notify-url: ${ALIPAY_NOTIFY_URL:http://localhost:8080/api/payments/alipay/callback}
+  ai:
+    domestic:
+      base-url: ${DOMESTIC_MODEL_BASE_URL:https://api.deepseek.com}
+      api-key: ${DOMESTIC_MODEL_API_KEY:demo-key}
+      model: ${DOMESTIC_MODEL_NAME:deepseek-chat}
+      temperature: 0.7
